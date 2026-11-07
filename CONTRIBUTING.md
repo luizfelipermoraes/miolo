@@ -1,44 +1,124 @@
-# How to Contribute to This Project
+# Como contribuir
 
-If you require more detailed instructions on any of these steps, please see the [detailed guide](/docs/contributing-details.md).
+Obrigado por querer melhorar o Miolo. Correções, traduções, novos formatos e relatos de problemas são bem-vindos.
 
-## Getting Started
+> **English:** contributions in English are welcome too. Issues and pull requests can be written in either language.
 
-1. Prerequisites: [`node`, `npm`,](https://nodejs.org/en/download/) and [`git`](https://docs.github.com/en/get-started/quickstart/set-up-git), as well as a web browser, somewhere to edit your code, and a way to run commands in the terminal
-1. [Fork](https://docs.github.com/en/get-started/quickstart/fork-a-repo) the repository, [clone](https://docs.github.com/en/get-started/quickstart/fork-a-repo#cloning-your-forked-repository) down your copy, and navigate to the project directory (`bookbinder-js` unless you've renamed it)
-1. Set the parent repository as the upstream remote for your project with `git remote add upstream https://github.com/momijizukamori/bookbinder-js.git`
-1. Run `npm i` to install project dependencies
+## Relatar um problema
 
-## Running the App
+Abra uma [issue](https://github.com/luizfelipermoraes/miolo/issues) com:
 
-1. Run the development server step with `npm run dev` - this will start the Vite dev server on http://localhost:5173/bookbinder-js/ which will refresh when you save changes to any of the source files.
-1. If you want to check something in a 'final' build, you can run `npm run preview`, which will build and then serve the app on http://localhost:4173/bookbinder-js/ - this mode will _not_ auto-refresh.
-1. If you are using VS Code, you can install the 'Debugger for Chrome' or 'Debugger for Firefox' extensions, and then launch the app via VS Code's Run menu to get an IDE debug session.
+- o que você esperava e o que aconteceu;
+- as configurações usadas (o endereço da página guarda todas elas, então basta copiar o link);
+- o PDF, ou pelo menos o número de páginas e o tamanho delas;
+- onde você usou: navegador (e qual) ou app para Mac (e a versão do macOS).
 
-## Branching and Committing
+Problemas de imposição ficam bem mais fáceis de achar com o [`example_page_numbers.pdf`](docs/example_page_numbers.pdf), que tem os números de 1 a 120 em tamanho grande.
 
-1. Create a feature branch with `git checkout -b` for whatever you're working on, such as `feature/contribution-docs` or `bugfix/page-layout-issues`
-1. Commit your changes as you go with meaningful commit messages
-1. Ideally, write tests for any new behavior you're introducting
-1. Run tests with `npm run test` as you introduce changes; try to catch any breaking changes early and, as appropriate, either debug your code to find the problem or update the existing tests to reflect the new expected behavior
-1. When you're done with your changes, make sure it passes the formatting and linting checks. These can be run as `npm run prettier` and `npm run lint` to simply check, or `npm run prettier:fix` and `npm run lint:fix` to autofix as much as possible (and show messages about the portions that can't be automatically fixed)
-1. Push your changes up to the feature branch on your fork as you go with `git push origin [name of branch]`, for example, `git push origin feature/contribution-docs`
+## Preparar o ambiente
 
-## Pull Requests
+Precisa do [Node.js](https://nodejs.org) 18 ou mais novo e do [git](https://git-scm.com).
 
-1. When you're ready to make a request for your changes to be merged into the parent repository, [open a pull request](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/creating-a-pull-request):
-   - first, [make sure your fork is still up-to-date](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks/syncing-a-fork#syncing-a-fork-from-the-command-line) with the latest version of the upstream repository with `git merge upstream/main`
-   - address any conflicts that may arise with upstream updates (currently outside the scope of this guide, but you can read some docs [here](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/addressing-merge-conflicts/about-merge-conflicts)).
-   - push all your latest changes, including any updates merged from upstream, up to your fork's feature branch as described above
-   - make sure tests are passing with `npm run test`
-   - open a pull request against the parent repository, as described in the link at the start of this section. Choose the parent repository's main branch as the 'base' and your fork's feature branch as the 'head'. Describe the changes you've made and review the changed files to make sure it's what you intended. See the following screenshot for an example:
-     ![pull request example](/docs/PR-example.png)
+1. Faça um [fork](https://github.com/luizfelipermoraes/miolo/fork) e clone a sua cópia.
+2. Instale as dependências e abra o servidor de desenvolvimento:
 
-## Adding PDF Tests
+   ```bash
+   npm install
+   npm run dev
+   ```
 
-We use [pdf-visual-diff](https://github.com/moshensky/pdf-visual-diff) to compare results for full workflow runs. To add a new baseline file to compare against:
+3. Abra http://localhost:5173/miolo/. O app recarrega sozinho a cada mudança.
 
-1. Pick a file under /docs to use. Run it through the app, and save the output zip file. **Important**: if you're adding a test for for a 'classic' layout configuration, set the output to include signatures and to be duplexed.
-2. Put the output file (wacky) or first signature (classic) in /pdf-test/files, and give it a descriptive name.
-3. Open up /pdf-test/pdfTestCases.js and add a new entry to the `testCases` object. The key should be the same as the name you gave the file (without the .pdf extension), and the object should have two keys: `input`, which is the filename of the file you used, and `config`, which should have the contents of the object from the settings.txt file included in the output zip.
-4. Generate new snapshots by running `npm run generate-snapshots` - this will clear existing snapshots and generate new ones for all files.
+Para o app para Mac, veja [App para Mac](README.md#app-para-mac) no README.
+
+## Fazer a mudança
+
+1. Crie um branch curto a partir do `main`: `feat/…` para recursos, `fix/…` para correções.
+2. Escreva testes para comportamentos novos. Os testes rápidos ficam ao lado do código, em `src` (`*.test.js`).
+3. Textos da interface ficam em [`src/locales/pt.json`](src/locales/pt.json) e [`src/locales/en.json`](src/locales/en.json). Toda chave nova precisa existir nos dois.
+4. Antes de abrir o pull request, rode:
+
+   ```bash
+   npm run test:unit
+   npm run lint
+   npm run prettier
+   ```
+
+   `npm run lint:fix` e `npm run prettier:fix` corrigem o que der automaticamente.
+
+5. Escreva mensagens de commit curtas e no imperativo, dizendo o que muda para quem usa (por exemplo, "Mostra a folha imposta no resumo").
+
+## Abrir o pull request
+
+- Abra contra o `main` deste repositório.
+- Descreva o problema e como a mudança resolve. Para mudanças visuais, inclua uma captura de tela antes e depois.
+- Confira se os testes do GitHub Actions passaram.
+
+## Testes de PDF
+
+Os testes em [`pdf-test`](pdf-test) imprimem PDFs completos e comparam com versões de referência usando o [pdf-visual-diff](https://github.com/moshensky/pdf-visual-diff). Rode com `npm run test:pdf`.
+
+Para adicionar um caso:
+
+1. Escolha um PDF da pasta `docs`, gere a imposição no app e guarde o `.zip`. Para formatos clássicos, use cadernos e frente e verso.
+2. Copie o arquivo gerado (folha única) ou o primeiro caderno (formatos clássicos) para `pdf-test/files`, com um nome que descreva o caso.
+3. Em `pdf-test/pdfTestCases.js`, adicione uma entrada em `testCases` com esse nome (sem `.pdf`), o `input` (o PDF de `docs`) e o `config` (o conteúdo do arquivo de configurações que vem no `.zip`).
+4. Gere as referências com `npm run generate-snapshots`. Isso refaz todas elas, então confira o diff antes de enviar.
+
+## Para quem mantém o projeto
+
+### Branches
+
+- **`main`**: sempre igual ao que está publicado.
+- **Branches curtos** (`feat/…`, `fix/…`), apagados depois de entrar no `main`.
+- **`gh-pages`**: o site gerado. Não edite à mão.
+
+### Publicar o site
+
+O workflow [`pages.yml`](.github/workflows/pages.yml) publica o site no `gh-pages` a cada push no `main`, quando as Actions estão ativadas. Para publicar à mão:
+
+```bash
+npm run build
+git worktree add ../miolo-pages gh-pages
+git -C ../miolo-pages rm -rq .
+cp -R dist/. ../miolo-pages/ && touch ../miolo-pages/.nojekyll
+git -C ../miolo-pages add -A && git -C ../miolo-pages commit -m "Publica o site"
+git -C ../miolo-pages push origin gh-pages && git worktree remove ../miolo-pages
+```
+
+### Lançar uma versão
+
+O site e o app para Mac usam a mesma versão, a do `package.json`.
+
+1. Atualize `version` no `package.json` e faça o commit.
+2. Gere o app e o instalador:
+
+   ```bash
+   sh macos/build.sh
+   sh macos/dmg.sh
+   ```
+
+3. Crie a tag e a release com o `.dmg` anexado. O nome `Miolo.dmg` precisa ficar igual, porque o link de download do README aponta para ele:
+
+   ```bash
+   gh release create vX.Y.Z macos/build/Miolo.dmg --title "Miolo X.Y.Z" --notes "…"
+   ```
+
+O fundo da janela do `.dmg` é o [`macos/dmg-background.tiff`](macos/dmg-background.tiff), gerado a partir de [`macos/dmg-background.html`](macos/dmg-background.html) em 640 × 400 e no dobro, juntos com `tiffutil -cathidpicheck`.
+
+O app tem assinatura local (ad hoc), então o macOS pede uma confirmação na primeira abertura. Para tirar esse passo, ele precisa ser assinado com um certificado Developer ID e notarizado pela Apple.
+
+### Docker
+
+O [`compose.yaml`](compose.yaml) gera o site e o serve com nginx, sem abrir portas: ele espera um servidor na frente. Para abrir uma porta, crie um `compose.override.yaml`:
+
+```yaml
+services:
+  miolo-nginx:
+    ports:
+      - '80:80'
+```
+
+## Licença
+
+Ao contribuir, você concorda que a sua contribuição seja distribuída sob a [Mozilla Public License 2.0](LICENSE), a mesma do projeto.

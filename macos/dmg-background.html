@@ -1,0 +1,68 @@
+<!doctype html>
+<!-- Source for the .dmg window background; macos/dmg.sh renders it at 640 × 400 (and 2×). -->
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Albert+Sans:wght@500&family=Literata:opsz,wght@7..72,400&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      html,
+      body {
+        margin: 0;
+        width: 640px;
+        height: 400px;
+        overflow: hidden;
+        background: oklch(0.968 0.009 84);
+        color: oklch(0.23 0.014 60);
+        font-family: 'Albert Sans', sans-serif;
+      }
+      h1 {
+        position: absolute;
+        top: 64px;
+        width: 100%;
+        margin: 0;
+        text-align: center;
+        font:
+          400 22px/1.2 'Literata',
+          serif;
+      }
+      p {
+        position: absolute;
+        top: 98px;
+        width: 100%;
+        margin: 0;
+        text-align: center;
+        font-size: 13px;
+        color: oklch(0.52 0.012 64);
+      }
+      svg {
+        position: absolute;
+        left: 0;
+        top: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- the text sits on top; the app icon at x 170 and Applications at x 470, centred on y 236 -->
+    <svg width="640" height="400" viewBox="0 0 640 400" fill="none">
+      <path
+        d="M262 236H372"
+        stroke="oklch(0.47 0.15 24)"
+        stroke-width="2"
+        stroke-dasharray="5 5"
+        stroke-linecap="round"
+      />
+      <path
+        d="M362 226l12 10-12 10"
+        stroke="oklch(0.47 0.15 24)"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+    </svg>
+    <h1>Arraste o Miolo para Aplicativos</h1>
+    <p>Drag Miolo to Applications</p>
+  </body>
+</html>
