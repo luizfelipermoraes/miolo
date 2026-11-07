@@ -1,8 +1,9 @@
-<div align="center">
-
-<img src="public/miolo.svg" width="72" height="72" alt="">
-
-# Miolo
+<h1>
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="docs/img/logo-escuro.png">
+    <img src="docs/img/logo-claro.png" alt="Miolo" height="48">
+  </picture>
+</h1>
 
 **Imposição de páginas para encadernação artesanal.**
 Envie um PDF, escolha o formato e baixe as folhas prontas para imprimir, dobrar e costurar.
@@ -20,8 +21,6 @@ Envie um PDF, escolha o formato e baixe as folhas prontas para imprimir, dobrar 
 </picture>
 
 [English](#english) · [Recursos](#recursos) · [Instalar no Mac](#instalar-no-mac) · [Desenvolvimento](#desenvolvimento) · [Contribuir](CONTRIBUTING.md)
-
-</div>
 
 ## Por que o Miolo
 

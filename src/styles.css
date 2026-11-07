@@ -179,6 +179,8 @@ img {
 .brand svg {
   width: 22px;
   height: 22px;
+  /* optical: the mark's base sits on the wordmark's baseline */
+  translate: 0 0.0625em;
   color: var(--accent);
   fill: currentColor;
   stroke: none;
